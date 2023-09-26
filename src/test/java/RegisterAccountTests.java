@@ -33,4 +33,18 @@ public class RegisterAccountTests extends BaseTest{
         String expectedText = "Congratulations! Your new account has been successfully created!";
         Assert.assertEquals(actualText, expectedText, "Actual text is not the expected one.");
     }
+    @Test
+    public void registerAccountWithoutFirstNameTest() {
+        registerAccountPage.insertLastName("Hari");
+        registerAccountPage.insertEmail(generateRandomEmail());
+        registerAccountPage.insertPhoneNumber("01234567");
+        registerAccountPage.setPassword("Password123!");
+        registerAccountPage.setPasswordConfirmation("Password123!");
+        registerAccountPage.checkPrivacyPolicy();
+        registerAccountPage.clickContinue();
+
+        String actualValue = registerAccountPage.getFirstNameErrorMessage();
+        String expectedValue = "First Name must be between 1 and 32 characters!";
+        Assert.assertEquals(actualValue, expectedValue, "Error message is not the expected one.");
+    }
 }
