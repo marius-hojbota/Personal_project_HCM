@@ -1,6 +1,7 @@
 import org.example.DashboardPage;
 import org.example.LoginPage;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static util.TestUtil.generateRandomEmail;
@@ -11,11 +12,15 @@ public class LoginTests extends BaseTest{
     private DashboardPage dashboardPage;
     private String loginPageURL = "https://ecommerce-playground.lambdatest.io/index.php?route=account/login";
 
+    @BeforeClass
+    public void beforeClass() {
+        driver.manage().window().maximize();
+    }
+
     @BeforeMethod
     public void beforeMethod() {
         System.out.println("Navigating to " + loginPageURL);
         driver.get(loginPageURL);
-        driver.manage().window().fullscreen();
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
     }

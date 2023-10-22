@@ -14,8 +14,10 @@ public class DashboardPage extends BasePage {
     private By myWishlistELement = By.xpath(".//div[@id='content']//a[contains(@href, 'account/wishlist')]");
     private By newsletterElement = By.xpath(".//div[@id='content']//a[contains(@href, 'account/newsletter')]");
     private By logoutButton = By.xpath("//*[@id=\"column-right\"]/div/a[14]");
+    private By cartElement = By.xpath("//*[@id=\"entry_217825\"]/a/div[1]");
 
     public String getFirstSectionHeaderText() { return driver.findElement(firstSectionHeader).getText(); }
     public String getEditAccountElementText() { return driver.findElement(editAccountElement).getText(); }
     public void clickLogoutButton() { driver.findElement(logoutButton).click(); }
+    public void clickCartButton() { driver.findElement(cartElement).click(); }
 }

@@ -15,7 +15,7 @@ public class RegisterAccountTests extends BaseTest {
 
     @BeforeClass
     public void beforeClass() {
-        driver.manage().window().fullscreen();
+        driver.manage().window().maximize();
     }
 
     @BeforeMethod

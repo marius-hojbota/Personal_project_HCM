@@ -13,11 +13,11 @@ public class DashboardTests extends BaseTest{
 
     @BeforeClass
     public void setPreconditions() {
+        driver.manage().window().maximize();
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         System.out.println("Navigating to " + loginPageURL);
         driver.get(loginPageURL);
-        driver.manage().window().fullscreen();
         loginWithExistingAccount();
     }
 

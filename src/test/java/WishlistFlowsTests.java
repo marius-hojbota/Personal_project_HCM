@@ -19,6 +19,7 @@ public class WishlistFlowsTests extends BaseTest {
 
     @BeforeClass
     public void setUpPreconditions() {
+        driver.manage().window().maximize();
         registerAccountPage = new RegisterAccountPage(driver);
         wishlistPage = new WishlistPage(driver);
         searchResultsPage = new SearchResultsPage(driver);
@@ -31,14 +32,13 @@ public class WishlistFlowsTests extends BaseTest {
 
     @Test
     public void addItemToWishlist() throws Exception {
-        driver.manage().window().fullscreen();
         String expectedResult = "No results!";
         wishlistPage.clickWishlist();
         String actualResult = wishlistPage.getNoResultsMessage();
         Assert.assertEquals(actualResult, expectedResult, "Text from element is not the expected one.");
         wishlistPage.enterTextToSearch("Apple Cinema 30\"");
         wishlistPage.clickSearchButton();
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         WebElement item = searchResultsPage.getFirstItem();
         action.moveToElement(item).build().perform();
         Thread.sleep(1000);
@@ -49,9 +49,30 @@ public class WishlistFlowsTests extends BaseTest {
         searchResultsPage.clickWishlist();
         int noOfItems = wishlistPage.getWishlistItems().size();
         Assert.assertTrue(noOfItems == 1, "Wishlist is empty");
-//        wishlistPage.clickRemoveItemFromWishlistButton();
-//        actualResult = wishlistPage.getNoResultsMessage();
-//        Assert.assertEquals(actualResult, expectedResult, "Text from element is not the expected one.");
+    }
+    @Test
+    public void removeItemFromWishlist() throws Exception {
+        String expectedResult = "No results!";
+        wishlistPage.clickWishlist();
+        String actualResult = wishlistPage.getNoResultsMessage();
+        Assert.assertEquals(actualResult, expectedResult, "Text from element is not the expected one.");
+        wishlistPage.enterTextToSearch("Apple Cinema 30\"");
+        wishlistPage.clickSearchButton();
+        Thread.sleep(3000);
+        WebElement item = searchResultsPage.getFirstItem();
+        action.moveToElement(item).build().perform();
+        Thread.sleep(1000);
+        WebElement button = searchResultsPage.getAddToWishlistButton();
+        action.moveToElement(button).click().build().perform();
+        Thread.sleep(1000);
+        searchResultsPage.clickToClosePopupButton();
+        searchResultsPage.clickWishlist();
+        Thread.sleep(1000);
+        int noOfItems = wishlistPage.getWishlistItems().size();
+        Assert.assertTrue(noOfItems == 1, "Wishlist is empty");
+        wishlistPage.clickRemoveItemFromWishlistButton();
+        actualResult = wishlistPage.getNoResultsMessage();
+        Assert.assertEquals(actualResult, expectedResult, "Text from element is not the expected one.");
     }
 
     public void createAccount() {
