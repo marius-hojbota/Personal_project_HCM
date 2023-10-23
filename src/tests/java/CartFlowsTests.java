@@ -38,7 +38,9 @@ public class CartFlowsTests extends BaseTest {
         createAccount();
         System.out.println("Creating new account to be logged in... Done");
         String expectedResult = "Your shopping cart is empty!";
+        Thread.sleep(1000);
         dashboardPage.clickCartButton();
+        Thread.sleep(1000);
         searchResultsPage.clickEditCartButton();
         Thread.sleep(2000);
         String actualResult = cartPage.getEmptyCartMessage();

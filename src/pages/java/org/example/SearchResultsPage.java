@@ -16,6 +16,7 @@ public class SearchResultsPage extends BasePage {
     private By addToCartButton = By.xpath(".//button[@title = 'Add to Cart']");
     private By searchResultItems2 = By.xpath(".//div[@class = 'carousel-item active']/img[contains(@title, 'iMac')]");
     private By editCartButton = By.xpath("//*[@id=\"entry_217850\"]/a");
+    private By mustLoginToAddToWishlist = By.xpath("//*[@id=\"notification-box-top\"]/div/div[1]/span");
 
     public void clickFirstItem() {
         driver.findElements(searchResultItems).get(0).click();
@@ -29,4 +30,5 @@ public class SearchResultsPage extends BasePage {
     public WebElement getAddtoCartButton() { return driver.findElements(addToCartButton).get(0); }
     public WebElement getFirstItem2() { return driver.findElements(searchResultItems2).get(0); }
     public void clickEditCartButton() { driver.findElement(editCartButton).click(); }
+    public String getMustLoginToAddToWishlistMessage() { return driver.findElement(mustLoginToAddToWishlist).getText(); }
 }

@@ -2,8 +2,8 @@ import org.example.DashboardPage;
 import org.example.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static util.TestUtil.generateRandomTelephoneNumber;
 
 public class DashboardTests extends BaseTest{
 
@@ -18,7 +18,6 @@ public class DashboardTests extends BaseTest{
         dashboardPage = new DashboardPage(driver);
         System.out.println("Navigating to " + loginPageURL);
         driver.get(loginPageURL);
-        loginWithExistingAccount();
     }
 
     @Test
@@ -31,8 +30,18 @@ public class DashboardTests extends BaseTest{
         Assert.assertEquals(dashboardPage.getEditAccountElementText(), expectedEditAccountElementText,
                 "Edit account element text is not the expected one");
     }
-//    @Test
-//    public void editAccountName
+    @Test
+    public void editAccountTelephoneNumber() throws Exception {
+        loginWithExistingAccount();
+        dashboardPage.clickEditAccountElement();
+        Thread.sleep(1000);
+        dashboardPage.clearTelephoneNumber();
+        dashboardPage.insertNewNumber(generateRandomTelephoneNumber());
+        dashboardPage.clickContinueButton();
+        String actualValue = dashboardPage.getAccountSuccessfullyUpdatedMessage();
+        String expectedValue = "Success: Your account has been successfully updated.";
+        Assert.assertEquals(actualValue, expectedValue, "The message is not the expected one.");
+    }
 
     public void loginWithExistingAccount() {
         loginPage.insertEmail("me@too.com");
